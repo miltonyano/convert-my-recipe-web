@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+
+import Route from './Route';
 
 import Main from '../pages/Main';
 import Recipe from '../pages/Recipe';
@@ -8,7 +10,7 @@ import Recipe from '../pages/Recipe';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={Main} />
-    <Route path="/recipe" component={Recipe} />
+    <Route path="/recipe" component={Recipe} isRestrict />
   </Switch>
 );
 

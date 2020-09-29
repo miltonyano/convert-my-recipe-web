@@ -39,6 +39,7 @@
       "react/jsx-props-no-spreading": "off",
       "no-unused-expressions": "off",
       "@typescript-eslint/camelcase": "off",
+      "no-use-before-define": "off",
       "import/extensions": [
         "error",
         "ignorePackages",

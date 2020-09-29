@@ -24,13 +24,33 @@ interface RecipeFormData {
   recipe: string;
 }
 
+interface UnitInText {
+  value: number;
+  unitText: string;
+  term: string;
+  id: string;
+}
+
+interface UnitFound {
+  name: string;
+  unitList: UnitInText[];
+  conversion: string[];
+}
+
+interface ApiResponse {
+  terms: string[];
+  unitGroup: UnitFound[];
+  parsedRecipe: string;
+}
+
 const Main: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const storedRecipe = localStorage.getItem('@ConvertMyRecipe:recipe') || '';
 
   const { addToast } = useToast();
   const history = useHistory();
 
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(!storedRecipe);
 
   const handleTextareaChange = useCallback(() => {
     setDisabled(!formRef.current?.getFieldValue('recipe'));
@@ -56,35 +76,47 @@ const Main: React.FC = () => {
         });
 
         const { recipe } = data;
-        const storedRecipe = localStorage.getItem('@ConverMyRecipe:recipe');
 
         if (recipe !== storedRecipe) {
-          localStorage.setItem('@ConverMyRecipe:recipe', recipe);
+          localStorage.setItem('@ConvertMyRecipe:recipe', recipe);
+          localStorage.removeItem('@ConvertMyRecipe:parsedRecipe');
+          localStorage.removeItem('@ConvertMyRecipe:unitGroup');
+          localStorage.removeItem('@ConvertMyRecipe:unitSpanIds');
 
-          const response = await api.post('/recipe/parse', {
+          const response = await api.post<ApiResponse>('/recipe/parse', {
             recipe,
           });
 
-          const { unitGroup, parsedRecipe } = response.data;
+          const { unitGroup, parsedRecipe, terms } = response.data;
 
-          if (!unitGroup.length) {
-            addToast({
-              type: 'info',
-              title: 'No units found',
-              description: 'No units where found in your recipe!',
-            });
-
-            return;
+          if (unitGroup.length) {
+            localStorage.setItem('@ConvertMyRecipe:parsedRecipe', parsedRecipe);
+            localStorage.setItem(
+              '@ConvertMyRecipe:unitGroup',
+              JSON.stringify(unitGroup),
+            );
+            localStorage.setItem(
+              '@ConvertMyRecipe:unitIds',
+              JSON.stringify(terms),
+            );
           }
-
-          localStorage.setItem('@ConverMyRecipe:parsedRecipe', parsedRecipe);
-          localStorage.setItem(
-            '@ConverMyRecipe:unitGroup',
-            JSON.stringify(unitGroup),
-          );
-
-          history.push('/recipe');
         }
+
+        const storedUnitGroup = localStorage.getItem(
+          '@ConvertMyRecipe:unitGroup',
+        );
+
+        if (!storedUnitGroup || !storedUnitGroup.length) {
+          addToast({
+            type: 'info',
+            title: 'No units found',
+            description: 'No units where found in your recipe!',
+          });
+
+          return;
+        }
+
+        history.push('/recipe');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -101,7 +133,7 @@ const Main: React.FC = () => {
         });
       }
     },
-    [addToast, history],
+    [addToast, history, storedRecipe],
   );
 
   return (
@@ -129,7 +161,13 @@ const Main: React.FC = () => {
         </SideAds>
 
         <RecipeContainer>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form
+            ref={formRef}
+            initialData={{
+              recipe: storedRecipe,
+            }}
+            onSubmit={handleSubmit}
+          >
             <Textarea
               name="recipe"
               draggable="false"

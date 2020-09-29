@@ -4,15 +4,14 @@ interface UnitSpanProps {
   isSelected: boolean;
 }
 
-export const Container = styled.div``;
-
-export const Content = styled.div`
+export const Container = styled.div`
   height: 90vh;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: auto;
   flex-wrap: wrap;
+  flex: 1;
 `;
 
 export const RecipeContainer = styled.div`
@@ -33,8 +32,4 @@ export const UnitSpan = styled.span<UnitSpanProps>`
 
 export const ButtonContainer = styled.div`
   display: flex;
-`;
-
-export const SideAds = styled.div`
-  margin: 0 96px;
 `;

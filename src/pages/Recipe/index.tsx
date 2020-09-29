@@ -1,108 +1,59 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import { sanitize } from 'dompurify';
+
+import parse, { domToReact } from 'html-react-parser';
+
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
-import api from '../../services/api';
-import getValidationErrors from '../../utils/getValidationErrors';
-import { useToast } from '../../hooks/toast';
-
-import Textarea from '../../components/Textarea';
 import Button from '../../components/Button';
+
+// import api from '../../services/api';
+// import getValidationErrors from '../../utils/getValidationErrors';
+// import { useToast } from '../../hooks/toast';
 
 import {
   Container,
   Content,
   RecipeContainer,
+  UnitSpan,
   ButtonContainer,
   SideAds,
 } from './styles';
+import RecipeConversionContainer from '../../components/RecipeConversionContainer';
+import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
-interface RecipeFormData {
-  recipe: string;
+interface UnitFormData {
+  [key: string]: string;
 }
 
 const Recipe: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
-
-  const { addToast } = useToast();
+  // const { addToast } = useToast();
   const history = useHistory();
+  const formRef = useRef<FormHandles>(null);
 
   const [disabled, setDisabled] = useState(true);
 
-  const handleTextareaChange = useCallback(() => {
-    setDisabled(!formRef.current?.getFieldValue('recipe'));
+  const parsedRecipeSanitized = useMemo(() => {
+    const parsedRecipe =
+      localStorage.getItem('@ConvertMyRecipe:parsedRecipe') || '';
+
+    return sanitize(parsedRecipe, {
+      ALLOWED_TAGS: ['span'],
+      ALLOWED_ATTR: ['class', 'id'],
+    });
   }, []);
 
-  const handlePaste = useCallback(async () => {
-    const text = await navigator.clipboard.readText();
-    formRef.current?.setFieldValue('recipe', text);
-    setDisabled(!formRef.current?.getFieldValue('recipe'));
+  const handleEdit = useCallback(() => {
+    history.push('/');
+  }, [history]);
+
+  const handleSubmit = useCallback((data: UnitFormData) => {
+    console.log(data);
   }, []);
-
-  const handleSubmit = useCallback(
-    async (data: RecipeFormData) => {
-      try {
-        formRef.current?.setErrors({});
-
-        const schema = Yup.object().shape({
-          recipe: Yup.string().required('Please insert your recipe.'),
-        });
-
-        await schema.validate(data, {
-          abortEarly: false,
-        });
-
-        const { recipe } = data;
-        const storedRecipe = localStorage.getItem('@ConverMyRecipe:recipe');
-
-        if (recipe !== storedRecipe) {
-          localStorage.setItem('@ConverMyRecipe:recipe', recipe);
-
-          const response = await api.post('/recipe/parse', {
-            recipe,
-          });
-
-          const { unitGroup, parsedRecipe } = response.data;
-
-          if (!unitGroup.length) {
-            addToast({
-              type: 'info',
-              title: 'No units found',
-              description: 'No units where found in your recipe!',
-            });
-
-            return;
-          }
-
-          localStorage.setItem('@ConverMyRecipe:parsedRecipe', parsedRecipe);
-          localStorage.setItem(
-            '@ConverMyRecipe:unitGroup',
-            JSON.stringify(unitGroup),
-          );
-
-          history.push('/recipe');
-        }
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-
-          formRef.current?.setErrors(errors);
-
-          return;
-        }
-
-        addToast({
-          type: 'error',
-          title: 'Internal error',
-          description: 'An error has occurred. Please try again later',
-        });
-      }
-    },
-    [addToast],
-  );
 
   return (
     <Container>
@@ -122,29 +73,7 @@ const Recipe: React.FC = () => {
       </Navbar>
 
       <Content>
-        <RecipeContainer>
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <Textarea
-              name="recipe"
-              draggable="false"
-              onChange={handleTextareaChange}
-              placeholder="Type or paste your recipe here. Then click on start!"
-            />
-
-            <h1>AD</h1>
-            <ButtonContainer>
-              <Button
-                style={{ width: '20%', marginRight: '16px' }}
-                onClick={handlePaste}
-              >
-                Paste
-              </Button>
-              <Button type="submit" disabled={disabled}>
-                Start
-              </Button>
-            </ButtonContainer>
-          </Form>
-        </RecipeContainer>
+        <RecipeConversionContainer />
 
         <SideAds>
           <h1>Ad 1</h1>
