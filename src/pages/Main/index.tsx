@@ -87,17 +87,13 @@ const Main: React.FC = () => {
             recipe,
           });
 
-          const { unitGroup, parsedRecipe, terms } = response.data;
+          const { unitGroup, parsedRecipe } = response.data;
 
           if (unitGroup.length) {
             localStorage.setItem('@ConvertMyRecipe:parsedRecipe', parsedRecipe);
             localStorage.setItem(
               '@ConvertMyRecipe:unitGroup',
               JSON.stringify(unitGroup),
-            );
-            localStorage.setItem(
-              '@ConvertMyRecipe:unitIds',
-              JSON.stringify(terms),
             );
           }
         }
