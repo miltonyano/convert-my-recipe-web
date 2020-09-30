@@ -1,18 +1,18 @@
 import React, {
   ChangeEvent,
   useCallback,
-  useRef,
   useState,
   useMemo,
   useEffect,
 } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import CheckboxTree, { Node } from 'react-checkbox-tree';
+import CheckboxTree from 'react-checkbox-tree';
 import parse, { domToReact } from 'html-react-parser';
 import { sanitize } from 'dompurify';
 import { useHistory } from 'react-router-dom';
 import { AiFillCaretRight, AiFillCaretDown } from 'react-icons/ai';
 import { useToast } from '../../hooks/toast';
+import api from '../../services/api';
 
 import '../../utils/string.extensions';
 
@@ -24,7 +24,6 @@ import {
   UnitSpan,
   ButtonContainer,
 } from './styles';
-import api from '../../services/api';
 
 interface UnitInText {
   value: number;
@@ -38,14 +37,6 @@ interface UnitFound {
   type: string;
   unitList: UnitInText[];
   conversion: string[];
-}
-
-interface UnitProps {
-  [key: string]: {
-    isHighlighted?: boolean;
-    value?: string | number;
-    selectedOption: string;
-  };
 }
 
 interface SelectedOption {
@@ -109,11 +100,6 @@ const RecipeConversionContainer: React.FC = () => {
     }, {});
   }, [unitGroup]);
 
-  const unitIds: string[] = useMemo(() => {
-    const storedUnitIds = localStorage.getItem('@ConvertMyRecipe:unitIds');
-    return storedUnitIds ? JSON.parse(storedUnitIds) : [];
-  }, []);
-
   const [checked, setChecked] = useState<string[]>([]);
   const [expanded, setExpanded] = useState<string[]>([]);
   const [disabledButton, setDisabledButton] = useState(true);
@@ -133,21 +119,6 @@ const RecipeConversionContainer: React.FC = () => {
     return unitGroup.reduce<IsHighlighted>((acc, group) => {
       group.unitList.forEach(unit => {
         acc[unit.id] = false;
-      });
-
-      return acc;
-    }, {});
-  });
-
-  const [unitProps, setUnitProps] = useState<UnitProps>(() => {
-    return unitGroup.reduce<UnitProps>((acc, group) => {
-      acc[group.name] = { selectedOption: '' };
-      group.unitList.forEach(unit => {
-        acc[unit.id] = {
-          value: unit.value,
-          isHighlighted: checked.includes(unit.id),
-          selectedOption: '',
-        };
       });
 
       return acc;
