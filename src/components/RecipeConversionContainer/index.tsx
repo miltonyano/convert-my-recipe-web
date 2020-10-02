@@ -30,9 +30,11 @@ interface UnitInText {
   unitText: string;
   term: string;
   id: string;
+  to?: string;
+  convertedValue?: number;
 }
 
-interface UnitFound {
+interface UnitGroup {
   name: string;
   type: string;
   unitList: UnitInText[];
@@ -51,27 +53,8 @@ interface TreeMap {
   [key: string]: string[];
 }
 
-interface Convert {
-  id: string;
-  value: number;
-  to: string;
-}
-
-interface FormData {
-  name: string;
-  convert: Convert[];
-}
-
-interface Converted {
-  id: string;
-  value: number;
-  to: string;
-  convertedValue: number;
-}
-
 interface ApiResponse {
-  name: string;
-  convert: Converted[];
+  recipe: string;
 }
 
 const RecipeConversionContainer: React.FC = () => {
@@ -88,7 +71,7 @@ const RecipeConversionContainer: React.FC = () => {
     });
   }, []);
 
-  const unitGroup = useMemo<UnitFound[]>(() => {
+  const unitGroup = useMemo<UnitGroup[]>(() => {
     const storedUnitGroup = localStorage.getItem('@ConvertMyRecipe:unitGroup');
     return storedUnitGroup ? JSON.parse(storedUnitGroup) : [];
   }, []);
@@ -138,25 +121,22 @@ const RecipeConversionContainer: React.FC = () => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      const data = unitGroup.reduce<FormData[]>((acc, group) => {
-        const { name } = group;
-        const convert = group.unitList.reduce<Convert[]>((accUnit, unit) => {
+      let optionSelected = false;
+      const unitGroupToConvert = unitGroup.map(group => {
+        const unitListToConvert = group.unitList.map(unit => {
           if (selectedOption[unit.id] === '') {
-            return accUnit;
+            return unit;
           }
 
-          accUnit.push({
-            id: unit.id,
-            value: unit.value,
-            to: selectedOption[unit.id],
-          });
-          return accUnit;
-        }, []);
+          optionSelected = true;
 
-        return convert.length ? [...acc, { name, convert }] : acc;
-      }, []);
+          return { ...unit, to: selectedOption[unit.id] };
+        });
 
-      if (!data.length) {
+        return { ...group, unitList: unitListToConvert };
+      });
+
+      if (!optionSelected) {
         addToast({
           type: 'info',
           title: 'No option selected',
@@ -167,9 +147,16 @@ const RecipeConversionContainer: React.FC = () => {
         return;
       }
 
-      const response = await api.post<ApiResponse>('/recipe/convert', data);
+      const response = await api.post<ApiResponse>('/recipe/convert', {
+        unitGroup: unitGroupToConvert,
+        parsedRecipe: parsedRecipeSanitized,
+      });
 
-      console.log(response.data);
+      localStorage.setItem('@ConvertMyRecipe:recipe', response.data.recipe);
+      localStorage.removeItem('@ConvertMyRecipe:parsedRecipe');
+      localStorage.removeItem('@ConvertMyRecipe:unitGroup');
+
+      history.push('/recipe/converted');
     } catch (err) {
       addToast({
         type: 'error',
@@ -177,7 +164,7 @@ const RecipeConversionContainer: React.FC = () => {
         description: 'An error has occurred. Please try again later',
       });
     }
-  }, [unitGroup, selectedOption, addToast]);
+  }, [unitGroup, selectedOption, parsedRecipeSanitized, addToast]);
 
   const handleCheck = useCallback(
     (checkList: string[]) => {
