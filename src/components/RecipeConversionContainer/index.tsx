@@ -164,7 +164,7 @@ const RecipeConversionContainer: React.FC = () => {
         description: 'An error has occurred. Please try again later',
       });
     }
-  }, [unitGroup, selectedOption, parsedRecipeSanitized, addToast]);
+  }, [unitGroup, selectedOption, parsedRecipeSanitized, addToast, history]);
 
   const handleCheck = useCallback(
     (checkList: string[]) => {
