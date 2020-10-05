@@ -5,12 +5,17 @@ import React, {
   useMemo,
   useEffect,
 } from 'react';
-import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from '@material-ui/core';
 import CheckboxTree from 'react-checkbox-tree';
 import parse, { domToReact } from 'html-react-parser';
 import { sanitize } from 'dompurify';
 import { useHistory } from 'react-router-dom';
-import { AiFillCaretRight, AiFillCaretDown } from 'react-icons/ai';
+import { FiPlus, FiMinus } from 'react-icons/fi';
 import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
 
@@ -21,8 +26,10 @@ import Button from '../Button';
 import {
   Container,
   RecipeContainer,
+  ParsedRecipeContainer,
   UnitSpan,
   ButtonContainer,
+  CheckboxTreeContainer,
 } from './styles';
 
 interface UnitInText {
@@ -202,8 +209,7 @@ const RecipeConversionContainer: React.FC = () => {
 
   const nodes = useMemo(() => {
     return unitGroup.map(group => {
-      const labelId = `${group.name}-label`;
-      const options = [<MenuItem value="">Cancel</MenuItem>];
+      const options = [<MenuItem value="" />];
       group.conversion.forEach(option =>
         options.push(
           <MenuItem value={option}>{option.toUpperCaseFirst()}</MenuItem>,
@@ -213,12 +219,9 @@ const RecipeConversionContainer: React.FC = () => {
       return {
         value: group.name,
         label: (
-          <FormControl style={{ minWidth: 120 }}>
-            <InputLabel id={labelId}>
-              {`${group.name.toUpperCaseFirst()} to`}
-            </InputLabel>
+          <FormControl style={{ minWidth: 120, marginBottom: 8 }}>
+            <FormHelperText>{`${group.name.toUpperCaseFirst()} to`}</FormHelperText>
             <Select
-              labelId={labelId}
               id={`${group.name}-select`}
               value={selectedOption[group.name]}
               onChange={handleChangeTree}
@@ -229,16 +232,12 @@ const RecipeConversionContainer: React.FC = () => {
           </FormControl>
         ),
         children: group.unitList.map(unit => {
-          const childrenLabelId = `${unit.id}-label`;
           return {
             value: unit.id,
             label: (
               <FormControl style={{ minWidth: 120 }}>
-                <InputLabel id={childrenLabelId}>
-                  {`${unit.term} to`}
-                </InputLabel>
+                <FormHelperText>{`${unit.term} to`}</FormHelperText>
                 <Select
-                  labelId={childrenLabelId}
                   id={`${unit.id}-select`}
                   value={selectedOption[unit.id]}
                   onChange={handleChangeTree}
@@ -257,23 +256,27 @@ const RecipeConversionContainer: React.FC = () => {
   return (
     <Container>
       <RecipeContainer>
-        {parse(parsedRecipeSanitized, {
-          replace: ({ attribs, children }) => {
-            if (!attribs || !children) {
-              return null;
-            }
+        <ParsedRecipeContainer>
+          <div>
+            {parse(parsedRecipeSanitized, {
+              replace: ({ attribs, children }) => {
+                if (!attribs || !children) {
+                  return null;
+                }
 
-            return (
-              <UnitSpan
-                isSelected={isHighlighted[attribs.id]}
-                className={attribs.class}
-                id={attribs.id}
-              >
-                {domToReact(children)}
-              </UnitSpan>
-            );
-          },
-        })}
+                return (
+                  <UnitSpan
+                    isSelected={isHighlighted[attribs.id]}
+                    className={attribs.class}
+                    id={attribs.id}
+                  >
+                    {domToReact(children)}
+                  </UnitSpan>
+                );
+              },
+            })}
+          </div>
+        </ParsedRecipeContainer>
 
         <h1>AD</h1>
         <ButtonContainer>
@@ -293,19 +296,21 @@ const RecipeConversionContainer: React.FC = () => {
         </ButtonContainer>
       </RecipeContainer>
 
-      <CheckboxTree
-        checked={checked}
-        expanded={expanded}
-        onCheck={handleCheck}
-        onExpand={handleExpand}
-        showNodeIcon={false}
-        nodes={nodes}
-        iconsClass="fa5"
-        icons={{
-          expandClose: <AiFillCaretRight />,
-          expandOpen: <AiFillCaretDown />,
-        }}
-      />
+      <CheckboxTreeContainer>
+        <CheckboxTree
+          checked={checked}
+          expanded={expanded}
+          onCheck={handleCheck}
+          onExpand={handleExpand}
+          showNodeIcon={false}
+          nodes={nodes}
+          iconsClass="fa5"
+          icons={{
+            expandClose: <FiPlus />,
+            expandOpen: <FiMinus />,
+          }}
+        />
+      </CheckboxTreeContainer>
     </Container>
   );
 };
