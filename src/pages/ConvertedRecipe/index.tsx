@@ -1,21 +1,16 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import * as Yup from 'yup';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import api from '../../services/api';
-import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
 
 import Header from '../../components/Header';
-import Textarea from '../../components/Textarea';
 import Button from '../../components/Button';
 
 import {
   Container,
   Content,
   RecipeContainer,
+  ConvertedRecipeContainer,
   ButtonContainer,
   SideAds,
 } from './styles';
@@ -42,7 +37,7 @@ const ConvertedRecipe: React.FC = () => {
         description: 'Could not copy the recipe to your clipboard',
       });
     }
-  }, [addToast]);
+  }, [addToast, storedRecipe]);
 
   return (
     <Container>
@@ -56,7 +51,9 @@ const ConvertedRecipe: React.FC = () => {
         </SideAds>
 
         <RecipeContainer>
-          <div>{storedRecipe}</div>
+          <ConvertedRecipeContainer>
+            <div>{storedRecipe}</div>
+          </ConvertedRecipeContainer>
 
           <h1>AD</h1>
           <ButtonContainer>

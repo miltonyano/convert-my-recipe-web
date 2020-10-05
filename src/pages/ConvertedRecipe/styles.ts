@@ -19,6 +19,20 @@ export const RecipeContainer = styled.div`
   white-space: pre-wrap;
 `;
 
+export const ConvertedRecipeContainer = styled.div`
+  border-radius: 10px;
+  padding: 8px 0 8px 16px;
+  width: 100%;
+  border: 1px solid #232129;
+  height: 40vh;
+  white-space: pre-wrap;
+
+  div {
+    height: fill-available;
+    overflow: auto;
+  }
+`;
+
 export const ButtonContainer = styled.div`
   display: flex;
 `;
