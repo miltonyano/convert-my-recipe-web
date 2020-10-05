@@ -164,7 +164,7 @@ const Main: React.FC = () => {
                 Paste
               </Button>
               <Button type="submit" disabled={disabled}>
-                Start
+                Next
               </Button>
             </ButtonContainer>
           </Form>
