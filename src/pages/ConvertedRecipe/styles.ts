@@ -15,6 +15,8 @@ export const RecipeContainer = styled.div`
   border: 1px solid gray;
   padding: 16px;
   flex-basis: 50%;
+
+  white-space: pre-wrap;
 `;
 
 export const ButtonContainer = styled.div`
