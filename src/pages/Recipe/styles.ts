@@ -7,7 +7,7 @@ interface UnitSpanProps {
 export const Container = styled.div``;
 
 export const Content = styled.div`
-  height: 90vh;
+  height: 95vh;
   display: flex;
   align-items: center;
   justify-content: space-between;

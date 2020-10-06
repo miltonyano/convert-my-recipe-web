@@ -8,8 +8,9 @@ const Header: React.FC = () => (
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav>
+        <Nav.Link href="/">Home</Nav.Link>
         <NavDropdown title="Units" id="collasible-nav-dropdown">
-          <NavDropdown.Item>Kilogrm</NavDropdown.Item>
+          <NavDropdown.Item href="/#test">Kilogrm</NavDropdown.Item>
           <NavDropdown.Item>Gram</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item>Litre</NavDropdown.Item>

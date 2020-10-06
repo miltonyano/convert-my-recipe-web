@@ -176,6 +176,9 @@ const Main: React.FC = () => {
           <h1>Ad 3</h1>
         </SideAds>
       </Content>
+      <div id="test">
+        <h1>Test</h1>
+      </div>
     </Container>
   );
 };

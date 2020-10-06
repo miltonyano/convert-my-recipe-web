@@ -27,12 +27,12 @@ export const Container = styled.div<ContainerProps>`
     background: transparent;
     width: 100%;
     resize: none;
-    height: 40vh;
+    height: 50vh;
 
     &::placeholder {
       color: #666360;
       text-align: center;
-      line-height: 40vh;
+      line-height: 50vh;
     }
   }
 `;

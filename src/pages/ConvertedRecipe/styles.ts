@@ -3,12 +3,13 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const Content = styled.div`
-  height: 90vh;
+  height: 95vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: auto;
   flex-wrap: wrap;
+  padding: 32px;
 `;
 
 export const RecipeContainer = styled.div`
@@ -24,7 +25,7 @@ export const ConvertedRecipeContainer = styled.div`
   padding: 8px 0 8px 16px;
   width: 100%;
   border: 1px solid #232129;
-  height: 40vh;
+  height: 50vh;
   white-space: pre-wrap;
 
   div {
