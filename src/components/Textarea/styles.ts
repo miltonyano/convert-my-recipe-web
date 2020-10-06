@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { shade } from 'polished';
 
 import ToolTip from '../Tooltip';
 
@@ -8,9 +9,8 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   border-radius: 10px;
-  padding: 8px 0 8px 16px;
-  width: 100%;
   border: 1px solid #232129;
+  padding: 8px 4px 8px 16px;
 
   ${props =>
     props.isErrored &&
@@ -18,21 +18,31 @@ export const Container = styled.div<ContainerProps>`
       border-color: #c53030;
     `}
 
-  & + div {
-    margin-top: 8px;
-  }
-
   textarea {
     border: 0;
     background: transparent;
     width: 100%;
     resize: none;
     height: 50vh;
+    transition: background-color 0.2s;
 
-    &::placeholder {
+    ::placeholder {
       color: #666360;
       text-align: center;
       line-height: 50vh;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${shade(0.2, '#c1c1c1')};
     }
   }
 `;

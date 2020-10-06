@@ -44,18 +44,11 @@ const ConvertedRecipe: React.FC = () => {
       <Header />
 
       <Content>
-        <SideAds>
-          <h1>Ad 1</h1>
-          <h1>Ad 2</h1>
-          <h1>Ad 3</h1>
-        </SideAds>
-
         <RecipeContainer>
           <ConvertedRecipeContainer>
             <div>{storedRecipe}</div>
           </ConvertedRecipeContainer>
 
-          <h1>AD</h1>
           <ButtonContainer>
             <Button
               style={{ width: '20%', marginRight: '16px' }}
@@ -66,12 +59,6 @@ const ConvertedRecipe: React.FC = () => {
             <Button onClick={() => history.push('/')}>Start over</Button>
           </ButtonContainer>
         </RecipeContainer>
-
-        <SideAds>
-          <h1>Ad 1</h1>
-          <h1>Ad 2</h1>
-          <h1>Ad 3</h1>
-        </SideAds>
       </Content>
     </Container>
   );

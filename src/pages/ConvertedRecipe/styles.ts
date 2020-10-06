@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div``;
 
@@ -6,14 +7,13 @@ export const Content = styled.div`
   height: 95vh;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin: auto;
-  flex-wrap: wrap;
-  padding: 32px;
+  justify-content: center;
+  padding: 0 32px 32px;
 `;
 
 export const RecipeContainer = styled.div`
-  border: 1px solid gray;
+  border: 1px solid #232129;
+  border-radius: 10px;
   padding: 16px;
   flex-basis: 50%;
 
@@ -22,15 +22,30 @@ export const RecipeContainer = styled.div`
 
 export const ConvertedRecipeContainer = styled.div`
   border-radius: 10px;
-  padding: 8px 0 8px 16px;
-  width: 100%;
   border: 1px solid #232129;
+  padding: 8px 4px 8px 16px;
   height: 50vh;
+
   white-space: pre-wrap;
 
   div {
     height: fill-available;
     overflow: auto;
+
+    transition: background-color 0.2s;
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${shade(0.2, '#c1c1c1')};
+    }
   }
 `;
 

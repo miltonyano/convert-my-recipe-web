@@ -278,7 +278,6 @@ const RecipeConversionContainer: React.FC = () => {
           </div>
         </ParsedRecipeContainer>
 
-        <h1>AD</h1>
         <ButtonContainer>
           <Button
             style={{ width: '20%', marginRight: '16px' }}

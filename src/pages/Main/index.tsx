@@ -15,9 +15,9 @@ import Button from '../../components/Button';
 import {
   Container,
   Content,
+  MainContent,
   RecipeContainer,
   ButtonContainer,
-  SideAds,
 } from './styles';
 
 interface RecipeFormData {
@@ -134,51 +134,39 @@ const Main: React.FC = () => {
       <Header />
 
       <Content>
-        <SideAds>
-          <h1>Ad 1</h1>
-          <h1>Ad 2</h1>
-          <h1>Ad 3</h1>
-        </SideAds>
+        <MainContent>
+          <RecipeContainer>
+            <Form
+              ref={formRef}
+              initialData={{
+                recipe: storedRecipe,
+              }}
+              onSubmit={handleSubmit}
+            >
+              <Textarea
+                name="recipe"
+                draggable="false"
+                onChange={handleTextareaChange}
+                placeholder="Type or paste your recipe here. Then click on start!"
+              />
 
-        <RecipeContainer>
-          <Form
-            ref={formRef}
-            initialData={{
-              recipe: storedRecipe,
-            }}
-            onSubmit={handleSubmit}
-          >
-            <Textarea
-              name="recipe"
-              draggable="false"
-              onChange={handleTextareaChange}
-              placeholder="Type or paste your recipe here. Then click on start!"
-            />
+              <ButtonContainer>
+                <Button
+                  style={{ width: '20%', marginRight: '16px' }}
+                  onClick={handlePaste}
+                >
+                  Paste
+                </Button>
+                <Button type="submit" disabled={disabled}>
+                  Next
+                </Button>
+              </ButtonContainer>
+            </Form>
+          </RecipeContainer>
+        </MainContent>
 
-            <h1>AD</h1>
-            <ButtonContainer>
-              <Button
-                style={{ width: '20%', marginRight: '16px' }}
-                onClick={handlePaste}
-              >
-                Paste
-              </Button>
-              <Button type="submit" disabled={disabled}>
-                Next
-              </Button>
-            </ButtonContainer>
-          </Form>
-        </RecipeContainer>
-
-        <SideAds>
-          <h1>Ad 1</h1>
-          <h1>Ad 2</h1>
-          <h1>Ad 3</h1>
-        </SideAds>
-      </Content>
-      <div id="test">
         <h1>Test</h1>
-      </div>
+      </Content>
     </Container>
   );
 };
