@@ -10,9 +10,9 @@ const Header: React.FC = () => (
       <Nav>
         <Nav.Link href="/">Home</Nav.Link>
         <NavDropdown title="Mass" id="mass-nav-dropdown">
-          <NavDropdown.Item href="/#milligram">Milligram</NavDropdown.Item>
-          <NavDropdown.Item href="/#gram">Gram</NavDropdown.Item>
           <NavDropdown.Item href="/#kilogram">Kilogram</NavDropdown.Item>
+          <NavDropdown.Item href="/#gram">Gram</NavDropdown.Item>
+          <NavDropdown.Item href="/#milligram">Milligram</NavDropdown.Item>
           <NavDropdown.Item href="/#poundmass">Poundmass</NavDropdown.Item>
           <NavDropdown.Item href="/#ounce">Ounce</NavDropdown.Item>
         </NavDropdown>
