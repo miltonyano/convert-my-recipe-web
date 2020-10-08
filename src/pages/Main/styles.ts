@@ -6,7 +6,7 @@ export const Content = styled.div`
   padding: 0 32px 32px;
 `;
 
-export const MainContent = styled.div`
+export const MainContentContainer = styled.div`
   height: 95vh;
   display: flex;
   justify-content: center;
@@ -26,4 +26,33 @@ export const ButtonContainer = styled.div`
 
 export const SideAds = styled.div`
   margin: 0 96px;
+`;
+
+export const UnitContentContainer = styled.div`
+  padding-top: 16px;
+`;
+
+export const UnitHeader = styled.div`
+  padding-bottom: 16px;
+`;
+
+export const UnitTitle = styled.h3`
+  margin-bottom: 0;
+`;
+
+export const UnitCite = styled.cite`
+  font-size: 12px;
+`;
+
+export const UnitContent = styled.div``;
+
+export const UnitFooter = styled.p`
+  font-size: 12px;
+`;
+
+export const ConversionTableContainer = styled.div`
+  width: 75%;
+  margin: auto;
+  text-align: center;
+  padding-top: 16px;
 `;
