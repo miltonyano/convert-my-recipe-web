@@ -32,27 +32,27 @@ interface RecipeFormData {
   recipe: string;
 }
 
-interface UnitInText {
+interface UnitList {
   value: number;
   unitText: string;
   term: string;
   id: string;
 }
 
-interface UnitFound {
+interface UnitGroup {
   name: string;
-  unitList: UnitInText[];
+  unitList: UnitList[];
   conversion: string[];
 }
 
 interface ApiResponse {
-  terms: string[];
-  unitGroup: UnitFound[];
+  unitGroup: UnitGroup[];
   parsedRecipe: string;
 }
 
 const Main: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
   const storedRecipe = localStorage.getItem('@ConvertMyRecipe:recipe') || '';
 
   const { addToast } = useToast();

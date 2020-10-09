@@ -56,7 +56,7 @@ const ConvertedRecipe: React.FC = () => {
             >
               Copy
             </Button>
-            <Button onClick={() => history.push('/')}>Start over</Button>
+            <Button onClick={() => history.push('/')}>Restart</Button>
           </ButtonContainer>
         </RecipeContainer>
       </Content>

@@ -32,7 +32,7 @@ import {
   CheckboxTreeContainer,
 } from './styles';
 
-interface UnitInText {
+interface UnitList {
   value: number;
   unitText: string;
   term: string;
@@ -44,7 +44,7 @@ interface UnitInText {
 interface UnitGroup {
   name: string;
   type: string;
-  unitList: UnitInText[];
+  unitList: UnitList[];
   conversion: string[];
 }
 
@@ -290,7 +290,7 @@ const RecipeConversionContainer: React.FC = () => {
             onClick={handleSubmit}
             disabled={disabledButton}
           >
-            Start
+            Convert
           </Button>
         </ButtonContainer>
       </RecipeContainer>
