@@ -155,7 +155,7 @@ const Main: React.FC = () => {
                 name="recipe"
                 draggable="false"
                 onChange={handleTextareaChange}
-                placeholder="Type or paste your recipe here. Then click on start!"
+                placeholder="Type or paste your recipe here. Then click on next!"
               />
 
               <ButtonContainer>
