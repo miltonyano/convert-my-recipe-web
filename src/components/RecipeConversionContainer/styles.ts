@@ -6,9 +6,12 @@ interface UnitSpanProps {
 }
 
 export const Container = styled.div`
+  padding: 16px 32px;
+  height: 95vh;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  align-items: center;
 `;
 
 export const RecipeContainer = styled.div`
@@ -16,7 +19,7 @@ export const RecipeContainer = styled.div`
   border-radius: 10px;
   padding: 16px;
   flex-basis: 50%;
-  height: 100%;
+  height: fit-content;
 `;
 
 export const ParsedRecipeContainer = styled.div`

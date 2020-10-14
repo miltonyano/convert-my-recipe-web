@@ -16,8 +16,6 @@ export const RecipeContainer = styled.div`
   border-radius: 10px;
   padding: 16px;
   flex-basis: 50%;
-
-  white-space: pre-wrap;
 `;
 
 export const ConvertedRecipeContainer = styled.div`
