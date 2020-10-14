@@ -12,7 +12,6 @@ import {
   RecipeContainer,
   ConvertedRecipeContainer,
   ButtonContainer,
-  SideAds,
 } from './styles';
 
 const ConvertedRecipe: React.FC = () => {
