@@ -401,9 +401,9 @@ const Main: React.FC = () => {
               paper, boxing gloves, and so on.
             </p>
             <p>
-              Ounce derives from Latin uncia, a unit that was one-twelfth
-              (​1⁄12) of the Roman pound (libra). The abbreviation oz came later
-              from the cognate Italian word onza (now spelled oncia).
+              Ounce derives from Latin uncia, a unit that was one-twelfth (1⁄12)
+              of the Roman pound (libra). The abbreviation oz came later from
+              the cognate Italian word onza (now spelled oncia).
             </p>
           </UnitContent>
           <UnitFooter>
@@ -574,9 +574,9 @@ const Main: React.FC = () => {
               fluid ounce.
             </p>
             <p>
-              An imperial fluid ounce is ​1⁄20 of an imperial pint, ​1⁄160 of an
+              An imperial fluid ounce is 1⁄20 of an imperial pint, 1⁄160 of an
               imperial gallon or approximately 28.41 ml. While a US fluid ounce
-              is ​1⁄16 of a US fluid pint, ​1⁄128 of a US liquid gallon or
+              is 1⁄16 of a US fluid pint, 1⁄128 of a US liquid gallon or
               approximately 29.57 ml, making it about 4.08% larger than the
               imperial fluid ounce.
             </p>
@@ -732,7 +732,7 @@ const Main: React.FC = () => {
               The cup (cp) is a cooking measure of volume, commonly associated
               with cooking and serving sizes. It is traditionally equal to half
               a liquid pint in US customary units, or an amount between 200 ml
-              and 250 ml (​1⁄5 and ​1⁄4 of a litre) in the metric system, which
+              and 250 ml (1⁄5 and 1⁄4 of a litre) in the metric system, which
               may vary due to location. Because actual drinking cups may differ
               greatly from the size of this unit, standard measuring cups are
               usually used instead.
@@ -960,7 +960,7 @@ const Main: React.FC = () => {
             <p>
               The inch (abbreviation: in or ″) is a unit of length in the
               (British) imperial and United States customary systems of
-              measurement. It is equal to ​1⁄36 yard or ​1⁄12 of a foot. Derived
+              measurement. It is equal to 1⁄36 yard or 1⁄12 of a foot. Derived
               from the Roman uncia (&quot;twelfth&quot;), the word inch is also
               sometimes used to translate similar units in other measurement
               systems, usually understood as deriving from the width of the
