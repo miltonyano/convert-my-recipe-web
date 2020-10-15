@@ -6,19 +6,15 @@ interface UnitSpanProps {
 }
 
 export const Container = styled.div`
-  padding: 16px 32px;
-  height: 95vh;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  align-items: center;
 `;
 
 export const RecipeContainer = styled.div`
   border: 1px solid #232129;
   border-radius: 10px;
   padding: 16px;
-  flex-basis: 50%;
   height: fit-content;
 `;
 
@@ -58,8 +54,10 @@ export const UnitSpan = styled.span<UnitSpanProps>`
 
 export const ButtonContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export const CheckboxTreeContainer = styled.div`
-  flex-basis: 25%;
+  margin-top: 32px;
 `;

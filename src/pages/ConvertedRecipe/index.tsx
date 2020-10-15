@@ -43,19 +43,18 @@ const ConvertedRecipe: React.FC = () => {
       <Header />
 
       <Content>
-        <RecipeContainer>
+        <RecipeContainer className="col-sm-9 col-md-8 col-lg-6">
           <ConvertedRecipeContainer>
             <div>{storedRecipe}</div>
           </ConvertedRecipeContainer>
 
           <ButtonContainer>
-            <Button
-              style={{ width: '20%', marginRight: '16px' }}
-              onClick={handleCopy}
-            >
+            <Button className="d-none d-sm-block col-sm-2" onClick={handleCopy}>
               Copy
             </Button>
-            <Button onClick={() => history.push('/')}>Restart</Button>
+            <Button className="col-sm-9" onClick={() => history.push('/')}>
+              Restart
+            </Button>
           </ButtonContainer>
         </RecipeContainer>
       </Content>

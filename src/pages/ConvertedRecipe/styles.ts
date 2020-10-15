@@ -4,18 +4,15 @@ import { shade } from 'polished';
 export const Container = styled.div``;
 
 export const Content = styled.div`
-  height: 95vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0 32px 32px;
+  padding: 32px;
 `;
 
 export const RecipeContainer = styled.div`
   border: 1px solid #232129;
   border-radius: 10px;
   padding: 16px;
-  flex-basis: 50%;
 `;
 
 export const ConvertedRecipeContainer = styled.div`
@@ -23,7 +20,6 @@ export const ConvertedRecipeContainer = styled.div`
   border: 1px solid #232129;
   padding: 8px 4px 8px 16px;
   height: 50vh;
-
   white-space: pre-wrap;
 
   div {
@@ -49,8 +45,6 @@ export const ConvertedRecipeContainer = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-`;
-
-export const SideAds = styled.div`
-  margin: 0 96px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
