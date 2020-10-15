@@ -143,7 +143,7 @@ const Main: React.FC = () => {
 
       <Content>
         <MainContentContainer>
-          <RecipeContainer>
+          <RecipeContainer className="col-sm-9 col-md-8 col-lg-6">
             <Form
               ref={formRef}
               initialData={{
@@ -160,12 +160,12 @@ const Main: React.FC = () => {
 
               <ButtonContainer>
                 <Button
-                  style={{ width: '20%', marginRight: '16px' }}
+                  className="d-none d-sm-block col-sm-2"
                   onClick={handlePaste}
                 >
                   Paste
                 </Button>
-                <Button type="submit" disabled={disabled}>
+                <Button className="col-sm-9" type="submit" disabled={disabled}>
                   Next
                 </Button>
               </ButtonContainer>

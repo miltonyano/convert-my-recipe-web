@@ -255,7 +255,7 @@ const RecipeConversionContainer: React.FC = () => {
 
   return (
     <Container>
-      <RecipeContainer>
+      <RecipeContainer className="col-sm-9 col-md-8 col-lg-6">
         <ParsedRecipeContainer>
           <div>
             {parse(parsedRecipeSanitized, {
@@ -279,13 +279,11 @@ const RecipeConversionContainer: React.FC = () => {
         </ParsedRecipeContainer>
 
         <ButtonContainer>
-          <Button
-            style={{ width: '20%', marginRight: '16px' }}
-            onClick={handleEdit}
-          >
+          <Button className="col-sm-2" onClick={handleEdit}>
             Edit
           </Button>
           <Button
+            className="col-sm-9"
             type="submit"
             onClick={handleSubmit}
             disabled={disabledButton}
@@ -295,7 +293,7 @@ const RecipeConversionContainer: React.FC = () => {
         </ButtonContainer>
       </RecipeContainer>
 
-      <CheckboxTreeContainer>
+      <CheckboxTreeContainer className="mt-md-0">
         <CheckboxTree
           checked={checked}
           expanded={expanded}
