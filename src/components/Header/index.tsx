@@ -4,11 +4,10 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const Header: React.FC = () => (
   <Navbar expand="lg" bg="light">
-    <Navbar.Brand>Convert my Recipe</Navbar.Brand>
+    <Navbar.Brand href="/">Convert my Recipe</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav>
-        <Nav.Link href="/">Home</Nav.Link>
         <NavDropdown title="Mass" id="mass-nav-dropdown">
           <NavDropdown.Item href="/#kilogram">Kilogram</NavDropdown.Item>
           <NavDropdown.Item href="/#gram">Gram</NavDropdown.Item>
